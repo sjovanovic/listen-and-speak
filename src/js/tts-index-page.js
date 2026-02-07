@@ -15,7 +15,7 @@
         this.listeningIcon = this.view.querySelector('.Listening')
 
         this.sts = this.view.querySelector('listen-and-speak')
-        this.sts.addEventListener('speech', (ev)=>{
+        this.sts.addEventListener('transcription', (ev)=>{
             let {text} = ev.detail
             console.log('Said:', text)
             if(this.hasAttribute('speakback')){

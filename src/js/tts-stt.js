@@ -17,7 +17,7 @@
         // if(!this.recognition) this.recognition = createSpeechRecognition({
         //   onSpeech:(text)=>{
         //     console.log('Detected text:', text)
-        //     this.dispatchEvent(new CustomEvent('speech', {
+        //     this.dispatchEvent(new CustomEvent('transcription', {
         //       detail: {
         //         text
         //       },
@@ -80,7 +80,7 @@
           },
           onSpeech:(buffer)=>{
             this.recognition.transcribe(buffer).then(res => {
-              this.dispatchEvent(new CustomEvent('speech', {
+              this.dispatchEvent(new CustomEvent('transcription', {
                 detail: {
                   text: res.text
                 },

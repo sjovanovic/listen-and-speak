@@ -23,7 +23,7 @@ npm install listen-and-speak
 ```
 Via CDN
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/listen-and-speak/dist/listen-and-speak.min.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/listen-and-speak/release/listen-and-speak.js"></script>
 ```
 Manual Installation
 ```html
