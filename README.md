@@ -44,6 +44,18 @@ Manual Installation
   voiceUI.speak('Hello, how can I help you today?');
 </script>
 ```
+
+The web component is invisible, for a basic visual UI there is an alternative component (the usage is the same):
+```html
+<listen-speak-ui></listen-speak-ui>
+```
+
+This demo speaks back whatever speech it detected:
+```html
+<listen-speak-ui speekback></listen-speak-ui>
+```
+
+
 ## 📖 API Reference
 ### Methods
 |Method|Description|Returns|
