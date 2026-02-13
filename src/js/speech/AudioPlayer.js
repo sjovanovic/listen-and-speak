@@ -19,6 +19,7 @@ export class AudioPlayer{
   }
 
   stop() {
+    this.player.stop()
     if (this.worker) {
       this.worker.postMessage({
         type: "stop"

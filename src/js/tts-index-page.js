@@ -17,14 +17,15 @@
         this.sts = this.view.querySelector('listen-and-speak')
         this.sts.addEventListener('transcription', (ev)=>{
             let {text} = ev.detail
-            console.log('Said:', text)
             if(this.hasAttribute('speakback')){
+              console.log('Said:', text)
               this.sts.speak(text)
             }
         })
 
         this.sts.addEventListener('speech-start', (ev)=>{
           this.listeningIcon.style.display = 'block'
+          this.stopSpeaking()
         })
         this.sts.addEventListener('speech-end', (ev)=>{
           this.listeningIcon.style.display = null
@@ -89,7 +90,7 @@
       }
 
       stopSpeaking(){
-        if(this.sts && this.sts.speaker) this.sts.speaker.stop()
+        if(this.sts && this.sts.speaker) this.sts.stopSpeech()
       }
   }
   customElements.define('tts-index-page', TtsIndexPage)
