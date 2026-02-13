@@ -46,7 +46,7 @@ async function workout() {
         if (type === "stop") {
             bufferQueueSize = 0;
             shouldStop = true;
-            console.log("Stop command received, stopping generation");
+            //console.log("Stop command received, stopping generation");
             //self.postMessage({ status: "complete" });
             return;
         }
@@ -64,21 +64,21 @@ async function workout() {
 
             for (const chunk of chunks) {
                 if (shouldStop) {
-                    console.log("Stopping audio generation");
+                    //console.log("Stopping audio generation");
                     self.postMessage({ status: "complete" });
                     break;
                 }
-                console.log(chunk);
+                //console.log(chunk);
 
                 while (bufferQueueSize >= MAX_QUEUE_SIZE && !shouldStop) {
-                    console.log("Waiting for buffer space...");
+                    //console.log("Waiting for buffer space...");
                     await new Promise(resolve => setTimeout(resolve, 1000));
                     if (shouldStop) break;
                 }
 
                 // If stopped during wait, exit the main loop too
                 if (shouldStop) {
-                    console.log("Stopping after queue wait");
+                    //console.log("Stopping after queue wait");
                     self.postMessage({ status: "complete" });
                     break;
                 }

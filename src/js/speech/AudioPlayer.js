@@ -1,7 +1,34 @@
 //import { updateProgress } from "./updateProgress.js";
 import { SAMPLE_RATE } from './constants.js'
 
-export class AudioPlayer {
+import {QueuedAudioPlayer} from './QueuedAudioPlayer.js'
+
+export class AudioPlayer{
+  constructor(worker) {
+    this.worker = worker;
+    this.player = new QueuedAudioPlayer({
+        sampleRate: SAMPLE_RATE, 
+        queueExausted:()=>{
+          this.worker.postMessage({type: "buffer_processed", percent: 100});
+        },
+    })
+  }
+
+  async queueAudio(audioData) {
+    this.player.queueAudio(audioData)
+  }
+
+  stop() {
+    if (this.worker) {
+      this.worker.postMessage({
+        type: "stop"
+      });
+    }
+  }
+}
+
+/*
+export class AudioPlayer_old {
 
   constructor(worker) {
     this.audioContext = new AudioContext();
@@ -103,3 +130,5 @@ export class AudioPlayer {
     return this.audioContext;
   }
 }
+
+*/
