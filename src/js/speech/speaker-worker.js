@@ -14,10 +14,11 @@ async function detectWebGPU() {
 async function workout() {
 
 
-    const device = await detectWebGPU() ? "webgpu" : "wasm";
+    let device = await detectWebGPU() ? "webgpu" : "wasm";
     self.postMessage({ status: "loading_model_start", device });
 
     let model_id = "onnx-community/Kokoro-82M-v1.0-ONNX";
+    //let model_id = "sjovanovic/kitten-tts-nano-0.8";
 
     if (self.location.hostname === "localhost2") {
         env.allowLocalModels = true;
@@ -83,7 +84,9 @@ async function workout() {
                     break;
                 }
 
-                const audio = await tts.generate(chunk, { voice }); // This is transformers RawAudio
+                //let speed = 0.6;
+                let speed = 1;
+                const audio = await tts.generate(chunk, { voice, speed }); // This is transformers RawAudio
                 let ab = audio.audio.buffer;
 
                 bufferQueueSize++;

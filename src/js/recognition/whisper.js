@@ -40,7 +40,7 @@ export class Whisper {
         let text = output.text
         text = text.trim()
         if(text.startsWith('[') && text.endsWith(']')) {
-            console.log(text)
+            //console.log(text)
             output.soudsLike = text
             output.text = ''
         }

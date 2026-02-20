@@ -9,6 +9,7 @@ export class Speaker {
           onComplete:function(){},
           onLoadingStart:function(){},
           onReady:function(){},
+          onStream:function(){},
           pathToWorker:'',
           ...opts
         }
@@ -18,6 +19,7 @@ export class Speaker {
         this.tts_worker.addEventListener("message", (e) => this.messageReceived(e));
         this.tts_worker.addEventListener("error",  (e) => this.errorReceived(e));
         this.voiceId = 'af_heart'
+        //this.voiceId = 'expr-voice-2-m'
 
         this.ready = false
         this.speechQueue = []
@@ -49,7 +51,10 @@ export class Speaker {
           this.opts.onProgress(Math.round(progress), {name, loaded, total, progress})
           break;
         case "stream_audio_data":
-            await this.audioPlayer.queueAudio(e.data.audio);
+            if(this.ready === true) {
+              await this.audioPlayer.queueAudio(e.data.audio);
+              this.opts.onStream(e.data) // data = {audio, text}
+            } 
           break;
         case "complete":
             //console.log("Streaming complete");
@@ -63,6 +68,8 @@ export class Speaker {
     }
 
     stop(){
+        this.ready = false;
+        setTimeout(() => this.ready = true, 2000)
         this.tts_worker.postMessage({ type: "stop" });
         if(this.audioPlayer) this.audioPlayer.stop();
     }

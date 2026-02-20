@@ -1,4 +1,5 @@
 // components
+import './js/TextTicker'
 import './js/tts-loader'
 import './js/tts-stt'
 import './js/tts-index-page'

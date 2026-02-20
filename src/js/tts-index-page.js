@@ -5,11 +5,22 @@
       constructor(state) {
         super()
         this.state = {
-          buttonText:'Start',
+          startLabel: '', //'▶',
+          stopLabel:'⏹',
           ...state
         }
         this.view.innerHTML = layoutHtml
 
+        
+
+      }
+
+      connectedCallback(){
+        if(this.getAncestor('tts-route')) return
+        this.init()
+      }
+
+      init(){
         this.ttsLoader = this.view.querySelector('.TTSLoader')
         this.sttLoader = this.view.querySelector('.STTLoader')
         this.listeningIcon = this.view.querySelector('.Listening')
@@ -49,21 +60,65 @@
           this.style.setProperty('--audio-level', level);
         })
 
-        let btn = this.startButton = this.view.querySelector('.StartButton')
-        btn.addEventListener('click', ()=>{
-          if(btn.classList.contains('Started')){
-            btn.classList.remove('Started')
-            btn.innerHTML = 'Start'
-            this.sts.stop()
-          }else{
-            btn.classList.add('Started')
-            btn.innerHTML = '⏹'
-            this.sts.listen()
-          }
+        this.sts.addEventListener('audio-stream', (ev)=>{
+          let {text} = ev.detail
+
+          // display spoken text
+          this.state.spokenText = text
         })
 
-        this.bind('buttonText', '.StartButton')
+        let btn = this.startButton = this.view.querySelector('.StartButton')
+        btn.addEventListener('click', ()=>{
+          this.toggleListen()
+        })
 
+        this.bind('startLabel', '.StartButton')
+        if(this.hasAttribute('start-label')){
+          this.state.startLabel = this.getAttribute('start-label')
+        }
+        if(this.hasAttribute('stop-label')){
+          this.state.stopLabel = this.getAttribute('stop-label')
+        }
+
+        this.ticker = this.view.querySelector('text-ticker')
+        this.bind('spokenText', 'text-ticker', ({el, val}) => {
+          this.ticker.addText(val)
+        })
+
+        // this.ticker.addText('Quick brown fox jumps over the lazy dog.')
+        // setTimeout(()=>{
+        //   this.ticker.addText('Foo bar baz.')
+        // }, 1000)
+
+
+
+
+        // setTimeout(()=>{
+        //     this.speak('Quick brown fox jumps over the lazy dog.')
+        //     setTimeout(()=>{
+        //         this.speak('Foo bar baz.')
+        //     }, 3000)
+        // }, 1000)
+
+        
+
+        let ear = this.view.querySelector('.EarWrap')
+        ear.addEventListener('click', ()=>{
+          if(!ear.classList.contains('SRDisabled')) return
+          ear.classList.remove('SRDisabled')
+          this.listen()
+        })
+      }
+
+      get observedAttributes(){
+        return ['start-label', 'stop-label']
+      }
+      attributeChangedCallback (name, oldValue, newValue) {
+        if(name == 'start-label'){
+          this.state.startLabel = newValue
+        }else if(name == 'stop-label'){
+          this.state.stopLabel = newValue
+        }
       }
 
       /**
@@ -89,8 +144,54 @@
         return normalizedLevel;
       }
 
+      listen(){
+        let btn = this.startButton
+        btn.classList.add('Started')
+        btn.innerHTML = this.state.stopLabel
+        if(!this.sts.vad || !this.sts.vad.active){
+          this.sts.listen()
+        }
+      }
+
+
+      toggleListen(){
+        let btn = this.startButton
+        if(btn.classList.contains('Started')){
+          this.stop()
+        }else{
+          this.listen()
+        }
+      }
+
+      stop(){
+        let btn = this.startButton
+        btn.classList.remove('Started')
+        btn.innerHTML = this.state.startLabel
+        this.sts.stop()
+
+        if(this.ticker) this.ticker.clear()
+      }
+
+      speak(text){
+        this.sts.speak(text).then(()=>{
+          if(!this.sts.vad || !this.sts.vad.active) {
+            // indicate that the voice recognition is not active and enable button to activete it
+            this.view.querySelector('.EarWrap').classList.add('SRDisabled')
+
+            let btn = this.startButton
+            btn.classList.add('Started')
+            btn.innerHTML = this.state.stopLabel
+          }
+        })
+      }
+
       stopSpeaking(){
         if(this.sts && this.sts.speaker) this.sts.stopSpeech()
+        if(this.ticker) this.ticker.clear()
+      }
+
+      speakFiller(){
+        if(this.sts) this.sts.speakFiller()
       }
   }
   customElements.define('tts-index-page', TtsIndexPage)

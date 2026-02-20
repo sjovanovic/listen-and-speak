@@ -64,6 +64,7 @@ listen()|	Starts VAD and begins recording audio|	Promise&lt;void&gt;
 stop()|	Stops recording and VAD|	void
 speak(text)|	Converts text to speech|	Promise&lt;void&gt;
 stopSpeech()|	Stops ongoing speech synthesis|	void
+speakFiller()|	Plays a random speech filler like "Thinking..."|	void
 
 ### Events
 
@@ -74,6 +75,7 @@ stopSpeech()|	Stops ongoing speech synthesis|	void
 |frame|	Fired for each audio frame captured|	{frame: Float32Array}|
 |progress|	Fired during model loading|	{type: string, progress: number}|
 |transcription|	Fired when speech is transcribed|	{text: string}|
+|audio-stream|	Fired when text to speech is playing|	{audio: Float32Array, text:String}|
 |error|	Fired on errors|	{error: string}|
 
 ### Properties

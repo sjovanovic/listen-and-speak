@@ -23,7 +23,7 @@
 }
 .rainbow:nth-child(2) {
   box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(94, 234, 212), 0 0 50px 25px rgb(232, 121, 249), 50px 0 50px 25px rgb(96, 165, 250), 130px 0 80px 40px white;
-  animation: 43.2s linear infinite slide;
+  animation: 43.2s ease-in infinite slide;
   animation-delay: -3.6s;
 }
 .rainbow:nth-child(3) {
@@ -33,7 +33,7 @@
 }
 .rainbow:nth-child(4) {
   box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(232, 121, 249), 0 0 50px 25px rgb(94, 234, 212), 50px 0 50px 25px rgb(96, 165, 250), 130px 0 80px 40px white;
-  animation: 41.4s linear infinite slide;
+  animation: 41.4s ease-out infinite slide;
   animation-delay: -7.2s;
 }
 .rainbow:nth-child(5) {
@@ -43,7 +43,7 @@
 }
 .rainbow:nth-child(6) {
   box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(96, 165, 250), 0 0 50px 25px rgb(232, 121, 249), 50px 0 50px 25px rgb(94, 234, 212), 130px 0 80px 40px white;
-  animation: 39.6s linear infinite slide;
+  animation: 39.6s ease-in infinite slide;
   animation-delay: -10.8s;
 }
 .rainbow:nth-child(7) {
@@ -53,7 +53,7 @@
 }
 .rainbow:nth-child(8) {
   box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(96, 165, 250), 0 0 50px 25px rgb(232, 121, 249), 50px 0 50px 25px rgb(94, 234, 212), 130px 0 80px 40px white;
-  animation: 37.8s linear infinite slide;
+  animation: 37.8s ease-out infinite slide;
   animation-delay: -14.4s;
 }
 .rainbow:nth-child(9) {
@@ -144,10 +144,12 @@
 
 @keyframes slide {
   from {
-    right: -25vw;
+    /* right: -25vw; */
+    transform: translateX(-25vw) rotate( calc(10deg * var(--audio-level)) );
   }
   to {
-    right: 125vw;
+    /* right: 125vw; */
+    transform: translateX(125vw) rotate( calc(10deg * var(--audio-level)) );
   }
 }
 .h {
@@ -180,20 +182,20 @@
     }
 
     .Button {
-      min-width: 148px;
+      min-width: 48px;
       min-height: 48px;
       box-sizing: border-box;
-      padding: 12px;
+      padding: 6px 12px;
 
       display:flex;
       align-items: center;
       justify-content: center;
 
-      border-radius: max(1dvw, 1dvh);;
-      background-color: rgb(60, 55, 100);
+      border-radius: max(1dvw, 1dvh);
+      background-color: #80509E;
       color:#fff;
       box-shadow: 0 0 10dvw 5dvw white;
-      transition: all 0.6s ease-out;
+      transition: all 0.4s ease-out;
 
       font-size: 24px;
       cursor:pointer;
@@ -261,6 +263,96 @@
         display: flex;
         justify-content: center;
       }
+
+      .Microphone{
+        font-size: 34px;
+        position:relative;
+      }
+      /* content:"🚫"; */
+      .Microphone::after{
+        content: "❌";
+        position: absolute;
+        font-size: 18px;
+        right: 21px;
+        top: 3px;
+      }
+
+      .EnableListen {
+        min-height:34px;
+        cursor: pointer;
+        display:none;
+      }
+      .EnableListen:hover{
+        text-decoration: underline;
+      }
+      .EnableListen:active{
+        color: #616161;
+      }
+
+      .VoiceRecognition {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTMxIDE4LjE0MjlDMzEgMjEuODkwNSAyNy44NjYgMjQuOTI4NiAyNCAyNC45Mjg2TTI0IDI0LjkyODZDMjAuMTM0IDI0LjkyODYgMTcgMjEuODkwNSAxNyAxOC4xNDI5TTI0IDI0LjkyODZWMjlNMjQgMjlIMjEuMk0yNCAyOUgyNi44TTIxLjIgMTguMTQyOVYxMi43MTQzQzIxLjIgMTEuMjE1MiAyMi40NTM2IDEwIDI0IDEwQzI1LjU0NjQgMTAgMjYuOCAxMS4yMTUyIDI2LjggMTIuNzE0M1YxOC4xNDI5QzI2LjggMTkuNjQxOSAyNS41NDY0IDIwLjg1NzEgMjQgMjAuODU3MUMyMi40NTM2IDIwLjg1NzEgMjEuMiAxOS42NDE5IDIxLjIgMTguMTQyOVoiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxsaW5lIHgxPSIxIiB5MT0iMTAiIHgyPSIxIiB5Mj0iMTUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxsaW5lIHgxPSI0IiB5MT0iNyIgeDI9IjQiIHkyPSIxOCIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPGxpbmUgeDE9IjEwIiB5MT0iMyIgeDI9IjEwIiB5Mj0iMjEiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxsaW5lIHgxPSIxMyIgeTE9IjkiIHgyPSIxMyIgeTI9IjE2IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8bGluZSB4MT0iNyIgeTE9IjExIiB4Mj0iNyIgeTI9IjE0IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8bGluZSB4MT0iMTYiIHkxPSIxMiIgeDI9IjE2IiB5Mj0iMTMiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPgo=);
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      .VoiceRecognition:not(:empty) {
+        padding-left: 58px;
+        background-position: left 8px center;
+        padding-right: 28px;
+      }
+
+      .SpokenTextWrap{
+        min-height:48px;
+        width:100%;
+        font-size: 24px;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: none;
+      }
+      .SpokenText {
+        transition: opacity 0.2s ease-out;
+      }
+
+      .EarWrap{
+        min-width: 48px;
+        min-height: 48px;
+        position:relative;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .SRDisabled{
+        border-radius: max(1dvw, 1dvh);
+        cursor:pointer;
+      }
+      
+      .EarWrap.SRDisabled:hover{
+        background-color: #e1dfdf;
+      }
+      .EarWrap.SRDisabled:active{
+        background-color: #bbbaba;
+      }
+      .EarWrap.SRDisabled::after {
+        content:"⛌";
+        color:rgb(183, 88, 83);
+        font-size: 22px;
+        position:absolute;
+        top: -10px;
+        right: 1px;
+      }
+      .EarWrap.SRDisabled:hover::after {
+        content:"Enable speech recognition";
+        font-size: 12px;
+        color:#555555;
+        top: 0px;
+        right: 48px;
+        margin-right: 6px;
+      }
+      .EarWrap.SRDisabled > .Listening{
+        display:flex;
+        animation:none;
+      }
+
   </style>
   <div class="Base">
     <div class="rainbow"></div>
@@ -293,19 +385,29 @@
 
     <div class="Content">
       <div class="Wrapper">
-        <svg class="Listening" width="42" height="42" viewBox="0 0 320 320" stroke="#000" stroke-width="18" xmlns="http://www.w3.org/2000/svg">
-          <g>
-           <path transform="rotate(-48.6594 115.074 140.384)"   id="svg_8" d="m25.25541,213.29629c191.52061,23.36039 224.21019,-139.31541 125.0989,-148.11715" opacity="NaN" fill="none" stroke-linecap="round"/>
-           <path transform="rotate(-114.58 127.257 98.2332)"  id="svg_9" d="m103.38479,119.0703c68.21756,0 43.32064,-41.42269 43.2704,-41.67411" opacity="NaN"  fill="none" stroke-linecap="round"/>
-           <path transform="rotate(-58.8997 113.648 146.587)"  id="svg_10" d="m97.81187,160.88302c42.20247,6.76497 30.06281,-29.25944 30.02794,-29.43703" opacity="NaN"  fill="none" stroke-linecap="round"/>
-           <path transform="rotate(100.615 106.151 169.022)" id="svg_12" d="m91.31404,180.77831c6.75245,3.03058 42.17981,-3.01501 25.04115,-24.24551" opacity="NaN"  fill="none" stroke-linecap="round"/>
-           <path transform="rotate(100.615 90.8345 243.52)"  id="svg_13" d="m68.87097,261.52532c31.65492,16.12511 62.98918,-19.24013 29.63343,-40.10008" opacity="NaN"  fill="none" stroke-linecap="round"/>
-           <path transform="rotate(-43.5531 206.1 153.297)" id="svg_14" d="m193.57925,165.41976c15.2832,-1.23387 21.25665,-7.97946 25.04115,-24.2455" opacity="NaN"  fill="none" stroke-linecap="round"/>
-           <path transform="rotate(-43.5531 229.949 156.226)"  id="svg_15" d="m201.77109,181.17439c34.39566,-2.53928 47.83922,-16.42157 56.35644,-49.89675" opacity="NaN"  fill="none" stroke-linecap="round"/>
-           <path transform="rotate(-38.6529 257.774 157.481)" id="svg_16" d="m215.45021,198.44082c51.66196,-4.16892 71.85408,-26.96048 84.64687,-81.91915" opacity="NaN"  fill="none" stroke-linecap="round"/>
-          </g>
-        </svg>
-        <div class="Button StartButton">Start</div>
+
+        <div class="SpokenTextWrap">
+          <!-- <div class="SpokenText"></div> -->
+          <text-ticker></text-ticker>
+        </div>
+        
+        <div class="EarWrap">
+          <svg class="Listening" width="42" height="42" viewBox="0 0 320 320" stroke="#000" stroke-width="18" xmlns="http://www.w3.org/2000/svg">
+            <g>
+             <path transform="rotate(-48.6594 115.074 140.384)"   id="svg_8" d="m25.25541,213.29629c191.52061,23.36039 224.21019,-139.31541 125.0989,-148.11715" opacity="NaN" fill="none" stroke-linecap="round"/>
+             <path transform="rotate(-114.58 127.257 98.2332)"  id="svg_9" d="m103.38479,119.0703c68.21756,0 43.32064,-41.42269 43.2704,-41.67411" opacity="NaN"  fill="none" stroke-linecap="round"/>
+             <path transform="rotate(-58.8997 113.648 146.587)"  id="svg_10" d="m97.81187,160.88302c42.20247,6.76497 30.06281,-29.25944 30.02794,-29.43703" opacity="NaN"  fill="none" stroke-linecap="round"/>
+             <path transform="rotate(100.615 106.151 169.022)" id="svg_12" d="m91.31404,180.77831c6.75245,3.03058 42.17981,-3.01501 25.04115,-24.24551" opacity="NaN"  fill="none" stroke-linecap="round"/>
+             <path transform="rotate(100.615 90.8345 243.52)"  id="svg_13" d="m68.87097,261.52532c31.65492,16.12511 62.98918,-19.24013 29.63343,-40.10008" opacity="NaN"  fill="none" stroke-linecap="round"/>
+             <path transform="rotate(-43.5531 206.1 153.297)" id="svg_14" d="m193.57925,165.41976c15.2832,-1.23387 21.25665,-7.97946 25.04115,-24.2455" opacity="NaN"  fill="none" stroke-linecap="round"/>
+             <path transform="rotate(-43.5531 229.949 156.226)"  id="svg_15" d="m201.77109,181.17439c34.39566,-2.53928 47.83922,-16.42157 56.35644,-49.89675" opacity="NaN"  fill="none" stroke-linecap="round"/>
+             <path transform="rotate(-38.6529 257.774 157.481)" id="svg_16" d="m215.45021,198.44082c51.66196,-4.16892 71.85408,-26.96048 84.64687,-81.91915" opacity="NaN"  fill="none" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="EnableListen">speech recognition</div>
+        <div class="Button StartButton VoiceRecognition"></div>
       </div>
     </div>
 

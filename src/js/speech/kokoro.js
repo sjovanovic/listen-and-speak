@@ -71,6 +71,7 @@ export class KokoroTTS {
       // Load voice style
       const data = await getVoiceData(voice);
       const offset = num_tokens * STYLE_DIM;
+      //const offset = 0 
       const voiceData = data.slice(offset, offset + STYLE_DIM);
   
       // Prepare model inputs

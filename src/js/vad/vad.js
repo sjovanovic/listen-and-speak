@@ -23,6 +23,7 @@ export class VAD {
             onSpeech:function(buffer){ }, // provides the actual audio buffer recorded from speech start to speech end
             onFrame:function(frame){ }, // triggers on each recorded audio frame
             autostart:false,
+            speechPauseMs: 500,
             ...opts
         }
         if(opts.autostart) this.start()
@@ -56,6 +57,10 @@ export class VAD {
         if(this.recorder) this.recorder.stop();
     }
 
+    get active(){
+        return (this.recorder && this.recorder.isActive)
+    }
+
     debounce(wasSpeech){
         if(!this.speaking && wasSpeech){
             this.speaking = true
@@ -71,7 +76,7 @@ export class VAD {
                     this.opts.onSpeech(this.flattenBuffer())
                 }
                 this.speaking = false
-            }, SPEECH_ACTIVE_INTERVAL_MS)
+            }, this.opts.speechPauseMs)
         }
     }
 
