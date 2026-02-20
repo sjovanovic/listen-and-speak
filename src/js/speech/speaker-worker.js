@@ -1,4 +1,4 @@
-import { KokoroTTS } from "./kokoro.js";
+import { KittenTTS } from "./kitten.js";
 import { env } from '@huggingface/transformers';
 import { splitTextSmart } from "./semantic-split.js";
 
@@ -17,15 +17,15 @@ async function workout() {
     let device = await detectWebGPU() ? "webgpu" : "wasm";
     self.postMessage({ status: "loading_model_start", device });
 
-    let model_id = "onnx-community/Kokoro-82M-v1.0-ONNX";
-    //let model_id = "sjovanovic/kitten-tts-nano-0.8";
+    //let model_id = "onnx-community/Kokoro-82M-v1.0-ONNX";
+    let model_id = "sjovanovic/kitten-tts-nano-0.8";
 
     if (self.location.hostname === "localhost2") {
         env.allowLocalModels = true;
         model_id = "./my_model/";
     }
 
-    const tts = await KokoroTTS.from_pretrained(model_id, {
+    const tts = await KittenTTS.from_pretrained(model_id, {
         dtype: device === "wasm" ? "q8" : "fp32", device,
         progress_callback: (progress) => {
             self.postMessage({ status: "loading_model_progress", progress });
@@ -59,7 +59,7 @@ async function workout() {
 
         if (text) {
             shouldStop = false;
-            let chunks = splitTextSmart(text, 300); // 400 seems to long for kokoro.
+            let chunks = splitTextSmart(text, 300); // divide text for perceived faster response
 
             self.postMessage({ status: "chunk_count", count: chunks.length });
 
@@ -84,8 +84,8 @@ async function workout() {
                     break;
                 }
 
-                //let speed = 0.6;
-                let speed = 1;
+                let speed = 0.7;
+                //let speed = 1;
                 const audio = await tts.generate(chunk, { voice, speed }); // This is transformers RawAudio
                 let ab = audio.audio.buffer;
 

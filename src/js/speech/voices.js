@@ -213,8 +213,11 @@ export const VOICES = Object.freeze({
   },
 });
 
-const VOICE_DATA_URL = "https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX/resolve/main/voices";
-//const VOICE_DATA_URL = "https://huggingface.co/sjovanovic/kitten-tts-nano-0.8/resolve/main/voices"
+//const VOICE_DATA_URL = "https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX/resolve/main/voices";
+const VOICE_DATA_URL = "https://huggingface.co/sjovanovic/kitten-tts-nano-0.8/resolve/main/voices"
+
+const KITTEN_TTS = true
+const NPZ_VOICES_FILE = true
 
 /**
  *
@@ -222,11 +225,10 @@ const VOICE_DATA_URL = "https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ON
  * @returns {Promise<ArrayBufferLike>}
  */
 async function getVoiceFile(id) {
-  const url = `${VOICE_DATA_URL}/${id}.bin`;
-
+  const url = NPZ_VOICES_FILE ? `${VOICE_DATA_URL}/voices.npz` : `${VOICE_DATA_URL}/${id}.bin`;
   let cache;
   try {
-    cache = await caches.open("kokoro-voices");
+    cache = await caches.open("kitten-voices");
     const cachedResponse = await cache.match(url);
     if (cachedResponse) {
       return await cachedResponse.arrayBuffer();
@@ -332,7 +334,7 @@ async function fetchAndParseNPZ(url) {
 }
 
 
-const KITTEN_TTS = false
+
 
 const VOICE_CACHE = new Map();
 export async function getVoiceData(voice) {
@@ -340,9 +342,9 @@ export async function getVoiceData(voice) {
     return VOICE_CACHE.get(voice);
   }
 
-  if(KITTEN_TTS){
+  if(NPZ_VOICES_FILE){
     // Kitten uses npz file format for voices (zipped numpy arrays)
-    let url = 'https://huggingface.co/KittenML/kitten-tts-nano-0.8-fp32/resolve/main/voices.npz?download=true'
+    let url = 'https://huggingface.co/sjovanovic/kitten-tts-nano-0.8/resolve/main/voices/voices.npz'
     let obj = await fetchAndParseNPZ(url)
     let keys = Object.keys(obj)
     if(keys.length){

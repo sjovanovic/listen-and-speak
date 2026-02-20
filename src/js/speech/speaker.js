@@ -13,7 +13,6 @@ export class Speaker {
           pathToWorker:'',
           ...opts
         }
-        //this.tts_worker = new Worker(new URL("./worker.js", import.meta.url), { type: "module" });
         this.tts_worker = new Worker(this.opts.pathToWorker + "speaker-worker.js");
         this.audioPlayer = new AudioPlayer(this.tts_worker);
         this.tts_worker.addEventListener("message", (e) => this.messageReceived(e));

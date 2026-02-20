@@ -1,11 +1,11 @@
 import { StyleTextToSpeech2Model, AutoTokenizer, Tensor, RawAudio } from '@huggingface/transformers'
 import {STYLE_DIM, SAMPLE_RATE} from './constants.js'
-import { phonemize } from "./phonemize.js";
+import { phonemize } from "phonemizer";
 import { getVoiceData, VOICES } from "./voices.js";
 
-export class KokoroTTS {
+export class KittenTTS {
     /**
-     * Create a new KokoroTTS instance.
+     * Create a new KittenTTS instance.
      * @param {import('@huggingface/transformers').StyleTextToSpeech2Model} model The model
      * @param {import('@huggingface/transformers').PreTrainedTokenizer} tokenizer The tokenizer
      */
@@ -15,20 +15,20 @@ export class KokoroTTS {
     }
   
     /**
-     * Load a KokoroTTS model from the Hugging Face Hub.
+     * Load a KittenTTS model from the Hugging Face Hub.
      * @param {string} model_id The model id
      * @param {Object} options Additional options
      * @param {"fp32"|"fp16"|"q8"|"q4"|"q4f16"} [options.dtype="fp32"] The data type to use.
      * @param {"wasm"|"webgpu"|"cpu"|null} [options.device=null] The device to run the model on.
      * @param {import("@huggingface/transformers").ProgressCallback} [options.progress_callback=null] A callback function that is called with progress information.
-     * @returns {Promise<KokoroTTS>} The loaded model
+     * @returns {Promise<KittenTTS>} The loaded model
      */
     static async from_pretrained(model_id, { dtype = "fp32", device = null, progress_callback = null } = {}) {
       const model = StyleTextToSpeech2Model.from_pretrained(model_id, { progress_callback, dtype, device });
       const tokenizer = AutoTokenizer.from_pretrained(model_id, { progress_callback });
   
       const info = await Promise.all([model, tokenizer]);
-      return new KokoroTTS(...info);
+      return new KittenTTS(...info);
     }
   
     get voices() {
@@ -56,10 +56,13 @@ export class KokoroTTS {
         throw new Error(`Voice "${voice}" not found. Should be one of: ${Object.keys(VOICES).join(", ")}.`);
       }
   
-      const language = voice.at(0); // "a" or "b"
+      //const language = voice.at(0); // "a" or "b"
+      const language = 'en-us'
       const phonemes = await phonemize(text, language);
+      console.log(phonemes)
       const { input_ids } = this.tokenizer(phonemes, {
         truncation: true,
+        //padding: true
       });
   
       // Select voice style based on number of input tokens
