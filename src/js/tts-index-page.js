@@ -108,6 +108,9 @@
           ear.classList.remove('SRDisabled')
           this.listen()
         })
+
+
+        this.view.querySelector('.Debug').addEventListener('click', ()=>this.debug())
       }
 
       get observedAttributes(){
@@ -192,6 +195,13 @@
 
       speakFiller(){
         if(this.sts) this.sts.speakFiller()
+      }
+
+      debug(){
+        this.speak("The Japanese had already forgotten more neurosurgery than the Chinese had ever known.")
+        setTimeout(()=>{
+          this.speak("The black clinics of Chiba were the cutting edge, whole bodies of technique supplanted monthly, and still they couldn’t repair the damage he’d suffered in that Memphis hotel.")
+        }, 1000)
       }
   }
   customElements.define('tts-index-page', TtsIndexPage)

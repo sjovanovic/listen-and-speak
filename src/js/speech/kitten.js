@@ -1,6 +1,6 @@
 import { StyleTextToSpeech2Model, AutoTokenizer, Tensor, RawAudio } from '@huggingface/transformers'
 import {STYLE_DIM, SAMPLE_RATE} from './constants.js'
-import { phonemize } from "phonemizer";
+import { phonemize } from "./phonemize.js";
 import { getVoiceData, VOICES } from "./voices.js";
 
 export class KittenTTS {
@@ -57,7 +57,8 @@ export class KittenTTS {
       }
   
       //const language = voice.at(0); // "a" or "b"
-      const language = 'en-us'
+      //const language = 'en-us'
+      const language = 'a'
       const phonemes = await phonemize(text, language);
       console.log(phonemes)
       const { input_ids } = this.tokenizer(phonemes, {
