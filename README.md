@@ -95,13 +95,6 @@ class VoiceAssistant {
     document.body.appendChild(this.voiceUI);
     
     this.setupEventListeners();
-    this.initialize();
-  }
-  
-  async initialize() {
-    // Wait for models to load
-    await this.voiceUI.ready;
-    console.log('Voice UI ready!');
   }
   
   setupEventListeners() {
@@ -167,7 +160,7 @@ assistant.startConversation();
 
 - Speech-to-Text: OpenAI Whisper
 
-- Text-to-Speech: Kokoro
+- Text-to-Speech: KittenTTS
 
 ### Performance Characteristics
 - Audio Frame Size: 512 samples
@@ -176,29 +169,21 @@ assistant.startConversation();
 
 - Model Loading: Cached in browser after first load
 
-- Memory Usage: ~200-400MB for all models
+- Memory Usage: ~70-100MB for all models
 
-- Initial Load Time: 30-60 seconds (first time only)
+- Initial Load Time: ~15-30 seconds (first time only)
 
 ## ⚙️ Configuration
-You can configure the component via attributes or JavaScript:
+You can configure the component via attributes:
 
 ```html
 <!-- Via attributes -->
 <listen-and-speak 
-  language="en"
+  worker-dir="./workers"
   vad-threshold="0.5"
-  auto-start="false"
-  debug="true">
+  auto-start="false">
 </listen-and-speak>
 
-<!-- Via JavaScript -->
-<script>
-  const voiceUI = document.querySelector('listen-and-speak');
-  voiceUI.language = 'en';
-  voiceUI.vadThreshold = 0.5;
-  voiceUI.autoStart = false;
-</script>
 ```
 ## 🌐 Browser Compatibility
 |Browser|	Support|	Notes|
@@ -267,7 +252,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - OpenAI Whisper team for speech recognition
 
-- Kokoro team for text-to-speech
+- KittenML team for text-to-speech
 
 ---
 Note: This is a client-side only solution. For production use, consider implementing fallbacks or hybrid approaches for users with limited device capabilities.

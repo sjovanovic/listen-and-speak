@@ -37,7 +37,10 @@ export class VAD {
         this.currentFrame = null
         this.prevFrame = null
 
-        this.processor = new SileroVAD()
+        this.processor = new SileroVAD({
+            speechThreshold: this.opts.speechThreshold || 0.3,
+            stopThreshold: this.opts.stopThreshold || 0.1
+        })
         this.recorder = createAudioRecorder((frame) => {
             if(this.currentFrame) this.prevFrame = this.currentFrame
             this.currentFrame = frame

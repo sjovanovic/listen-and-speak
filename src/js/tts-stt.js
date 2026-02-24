@@ -84,7 +84,9 @@
               bubbles: true,
               composed: true
             }))
-          }
+          },
+          speechThreshold: this.hasAttribute('vad-threshold') ? parseFloat(this.getAttribute('vad-threshold')) : undefined,
+          stopThreshold: this.hasAttribute('vad-end-threshold') ? parseFloat(this.getAttribute('vad-end-threshold')) : undefined,
         })
         this.vad.start()
       }
@@ -149,6 +151,12 @@
         if(this.vad) this.vad.stop()
         if(this.recognition) this.recognition.stop()
         if(this.speaker) this.speaker.stop()
+      }
+
+      connectedCallback(){
+        if(this.hasAttribute('auto-start') && this.gerAttribute('auto-start') == "true"){
+          this.listen()
+        }
       }
 
       disconnectedCallback(){

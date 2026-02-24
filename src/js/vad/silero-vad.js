@@ -37,7 +37,12 @@ export class SileroVAD {
     sr = null; //: Tensor
     state = null; //: Tensor
 
-    constructor() {
+    constructor(opts = {}) {
+        this.opts = {
+            speechThreshold: 0.3,
+            stopThreshold: 0.1,
+            ...opts
+        }
         this.sr = new Tensor('int64', [SAMPLE_RATE], [])
         this.state = new Tensor(
             'float32',
@@ -67,9 +72,9 @@ export class SileroVAD {
         // Use heuristics to determine if the buffer is speech or not
         return (
             // Case 1: We are above the threshold (definitely speech)
-            speechScore > SPEECH_THRESHOLD ||
+            speechScore > this.opts.speechThreshold ||
             // Case 2: We are in the process of recording, and the probability is above the negative (exit) threshold
-            (wasSpeech && speechScore >= EXIT_THRESHOLD)
+            (wasSpeech && speechScore >= this.opts.stopThreshold)
         )
     }
 }
