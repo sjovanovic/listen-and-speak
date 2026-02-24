@@ -1,5 +1,6 @@
 import { AudioPlayer } from "./AudioPlayer.js";
 
+const THIS_SCRIPT = document.currentScript;
 
 export class Speaker {
     constructor(opts={}){
@@ -13,7 +14,7 @@ export class Speaker {
           pathToWorker:'',
           ...opts
         }
-        this.tts_worker = new Worker(this.opts.pathToWorker + "speaker-worker.js");
+        this.tts_worker = new Worker((this.opts.pathToWorker || this.getScriptPath() ) + "speaker-worker.js");
         this.audioPlayer = new AudioPlayer(this.tts_worker);
         this.tts_worker.addEventListener("message", (e) => this.messageReceived(e));
         this.tts_worker.addEventListener("error",  (e) => this.errorReceived(e));
@@ -21,6 +22,14 @@ export class Speaker {
 
         this.ready = false
         this.speechQueue = []
+    }
+
+    getScriptPath(){
+      let path = THIS_SCRIPT.src.split('/')
+      path.pop()
+      path = path.join('/') + '/'
+      console.log('path', path)
+      return path
     }
 
     async messageReceived(e){
