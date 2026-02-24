@@ -15,6 +15,7 @@ async function workout() {
 
 
     let device = await detectWebGPU() ? "webgpu" : "wasm";
+    device = 'wasm' // webgpu currently has issue with long buffers
     self.postMessage({ status: "loading_model_start", device });
 
     //let model_id = "onnx-community/Kokoro-82M-v1.0-ONNX";

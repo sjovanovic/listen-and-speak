@@ -85,23 +85,6 @@
           this.ticker.addText(val)
         })
 
-        // this.ticker.addText('Quick brown fox jumps over the lazy dog.')
-        // setTimeout(()=>{
-        //   this.ticker.addText('Foo bar baz.')
-        // }, 1000)
-
-
-
-
-        // setTimeout(()=>{
-        //     this.speak('Quick brown fox jumps over the lazy dog.')
-        //     setTimeout(()=>{
-        //         this.speak('Foo bar baz.')
-        //     }, 3000)
-        // }, 1000)
-
-        
-
         let ear = this.view.querySelector('.EarWrap')
         ear.addEventListener('click', ()=>{
           if(!ear.classList.contains('SRDisabled')) return
@@ -110,7 +93,9 @@
         })
 
 
-        this.view.querySelector('.Debug').addEventListener('click', ()=>this.debug())
+        this.view.querySelector('.Debug').addEventListener('click', ()=>{
+          this.debug()
+        })
       }
 
       get observedAttributes(){

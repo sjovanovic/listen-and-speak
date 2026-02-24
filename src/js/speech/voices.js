@@ -1,234 +1,22 @@
 export const VOICES = Object.freeze({
   "expr-voice-2-m": {
-    name: "Bella",
+    name: "Jasper",
     language: "en-us",
-    gender: "Male",
-    traits: "🔥",
-    targetQuality: "A",
-    overallGrade: "A-",
-  },
-  af_heart: {
-    name: "Heart",
-    language: "en-us",
-    gender: "Female",
-    traits: "❤️",
-    targetQuality: "A",
-    overallGrade: "A",
-  },
-  af_alloy: {
-    name: "Alloy",
-    language: "en-us",
-    gender: "Female",
-    targetQuality: "B",
-    overallGrade: "C",
-  },
-  af_aoede: {
-    name: "Aoede",
-    language: "en-us",
-    gender: "Female",
-    targetQuality: "B",
-    overallGrade: "C+",
-  },
-  af_bella: {
-    name: "Bella",
-    language: "en-us",
-    gender: "Female",
-    traits: "🔥",
-    targetQuality: "A",
-    overallGrade: "A-",
-  },
-  af_jessica: {
-    name: "Jessica",
-    language: "en-us",
-    gender: "Female",
-    targetQuality: "C",
-    overallGrade: "D",
-  },
-  af_kore: {
-    name: "Kore",
-    language: "en-us",
-    gender: "Female",
-    targetQuality: "B",
-    overallGrade: "C+",
-  },
-  af_nicole: {
-    name: "Nicole",
-    language: "en-us",
-    gender: "Female",
-    traits: "🎧",
-    targetQuality: "B",
-    overallGrade: "B-",
-  },
-  af_nova: {
-    name: "Nova",
-    language: "en-us",
-    gender: "Female",
-    targetQuality: "B",
-    overallGrade: "C",
-  },
-  af_river: {
-    name: "River",
-    language: "en-us",
-    gender: "Female",
-    targetQuality: "C",
-    overallGrade: "D",
-  },
-  af_sarah: {
-    name: "Sarah",
-    language: "en-us",
-    gender: "Female",
-    targetQuality: "B",
-    overallGrade: "C+",
-  },
-  af_sky: {
-    name: "Sky",
-    language: "en-us",
-    gender: "Female",
-    targetQuality: "B",
-    overallGrade: "C-",
-  },
-  am_adam: {
-    name: "Adam",
-    language: "en-us",
-    gender: "Male",
-    targetQuality: "D",
-    overallGrade: "F+",
-  },
-  am_echo: {
-    name: "Echo",
-    language: "en-us",
-    gender: "Male",
-    targetQuality: "C",
-    overallGrade: "D",
-  },
-  am_eric: {
-    name: "Eric",
-    language: "en-us",
-    gender: "Male",
-    targetQuality: "C",
-    overallGrade: "D",
-  },
-  am_fenrir: {
-    name: "Fenrir",
-    language: "en-us",
-    gender: "Male",
-    targetQuality: "B",
-    overallGrade: "C+",
-  },
-  am_liam: {
-    name: "Liam",
-    language: "en-us",
-    gender: "Male",
-    targetQuality: "C",
-    overallGrade: "D",
-  },
-  am_michael: {
-    name: "Michael",
-    language: "en-us",
-    gender: "Male",
-    targetQuality: "B",
-    overallGrade: "C+",
-  },
-  am_onyx: {
-    name: "Onyx",
-    language: "en-us",
-    gender: "Male",
-    targetQuality: "C",
-    overallGrade: "D",
-  },
-  am_puck: {
-    name: "Puck",
-    language: "en-us",
-    gender: "Male",
-    targetQuality: "B",
-    overallGrade: "C+",
-  },
-  am_santa: {
-    name: "Santa",
-    language: "en-us",
-    gender: "Male",
-    targetQuality: "C",
-    overallGrade: "D-",
-  },
-  bf_emma: {
-    name: "Emma",
-    language: "en-gb",
-    gender: "Female",
-    traits: "🚺",
-    targetQuality: "B",
-    overallGrade: "B-",
-  },
-  bf_isabella: {
-    name: "Isabella",
-    language: "en-gb",
-    gender: "Female",
-    targetQuality: "B",
-    overallGrade: "C",
-  },
-  bm_george: {
-    name: "George",
-    language: "en-gb",
-    gender: "Male",
-    targetQuality: "B",
-    overallGrade: "C",
-  },
-  bm_lewis: {
-    name: "Lewis",
-    language: "en-gb",
-    gender: "Male",
-    targetQuality: "C",
-    overallGrade: "D+",
-  },
-  bf_alice: {
-    name: "Alice",
-    language: "en-gb",
-    gender: "Female",
-    traits: "🚺",
-    targetQuality: "C",
-    overallGrade: "D",
-  },
-  bf_lily: {
-    name: "Lily",
-    language: "en-gb",
-    gender: "Female",
-    traits: "🚺",
-    targetQuality: "C",
-    overallGrade: "D",
-  },
-  bm_daniel: {
-    name: "Daniel",
-    language: "en-gb",
-    gender: "Male",
-    traits: "🚹",
-    targetQuality: "C",
-    overallGrade: "D",
-  },
-  bm_fable: {
-    name: "Fable",
-    language: "en-gb",
-    gender: "Male",
-    traits: "🚹",
-    targetQuality: "B",
-    overallGrade: "C",
-  },
+    gender: "Male"
+  }
 });
-
-//const VOICE_DATA_URL = "https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX/resolve/main/voices";
 const VOICE_DATA_URL = "https://huggingface.co/sjovanovic/kitten-tts-nano-0.8/resolve/main/voices"
-
-const KITTEN_TTS = true
 const NPZ_VOICES_FILE = true
 
 /**
- *
- * @param {keyof typeof VOICES} id
+ * Download array buffer from url and caches it.
+ * @param {String} url
  * @returns {Promise<ArrayBufferLike>}
  */
-async function getVoiceFile(id) {
-  const url = NPZ_VOICES_FILE ? `${VOICE_DATA_URL}/voices.npz` : `${VOICE_DATA_URL}/${id}.bin`;
+async function getArrayBuffer(url, cacheName='voices-cache') {
   let cache;
   try {
-    cache = await caches.open("kitten-voices");
+    cache = await caches.open(cacheName);
     const cachedResponse = await cache.match(url);
     if (cachedResponse) {
       return await cachedResponse.arrayBuffer();
@@ -258,11 +46,14 @@ async function getVoiceFile(id) {
   return buffer;
 }
 
-
-
-async function fetchAndParseNPZ(url) {
-  const response = await fetch(url);
-  const buffer = await response.arrayBuffer();
+async function fetchAndParseNPZ(url, cache=true) {
+  let buffer
+  if(cache){
+    buffer = await getArrayBuffer(url)
+  }else{
+    const response = await fetch(url);
+    buffer = await response.arrayBuffer();
+  }
   const view = new DataView(buffer);
   const result = {};
 
@@ -333,23 +124,18 @@ async function fetchAndParseNPZ(url) {
   }
 }
 
-
-
-
 const VOICE_CACHE = new Map();
 export async function getVoiceData(voice) {
   if (VOICE_CACHE.has(voice)) {
     return VOICE_CACHE.get(voice);
   }
-
   if(NPZ_VOICES_FILE){
     // Kitten uses npz file format for voices (zipped numpy arrays)
-    let url = 'https://huggingface.co/sjovanovic/kitten-tts-nano-0.8/resolve/main/voices/voices.npz'
+    let url = `${VOICE_DATA_URL}/voices.npz`
     let obj = await fetchAndParseNPZ(url)
     let keys = Object.keys(obj)
     if(keys.length){
         // obj.myArray.shape is the dimensions
-        console.log('dimensions', obj[keys[0]].shape)
         // obj.myArray.data is the TypedArray
         const buffer = obj[keys[0]].data
         VOICE_CACHE.set(voice, buffer);
@@ -358,7 +144,8 @@ export async function getVoiceData(voice) {
       throw Error('No voices found in ', url)
     }
   }else{
-    const buffer = new Float32Array(await getVoiceFile(voice));
+    let url = `${VOICE_DATA_URL}/${voice}.bin`
+    const buffer = new Float32Array(await getArrayBuffer(url));
     VOICE_CACHE.set(voice, buffer);
     return buffer;
   }

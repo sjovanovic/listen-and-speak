@@ -17,8 +17,7 @@ export class Speaker {
         this.audioPlayer = new AudioPlayer(this.tts_worker);
         this.tts_worker.addEventListener("message", (e) => this.messageReceived(e));
         this.tts_worker.addEventListener("error",  (e) => this.errorReceived(e));
-        this.voiceId = 'af_heart'
-        //this.voiceId = 'expr-voice-2-m'
+        this.voiceId = 'expr-voice-2-m'
 
         this.ready = false
         this.speechQueue = []

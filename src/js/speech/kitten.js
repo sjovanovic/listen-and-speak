@@ -60,7 +60,7 @@ export class KittenTTS {
       //const language = 'en-us'
       const language = 'a'
       const phonemes = await phonemize(text, language);
-      console.log(phonemes)
+      //console.log(phonemes)
       const { input_ids } = this.tokenizer(phonemes, {
         truncation: true,
         //padding: true

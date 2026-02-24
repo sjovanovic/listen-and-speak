@@ -4,7 +4,7 @@ import cache from 'just-once'
 export const SAMPLE_RATE = 16000
 
 const getModel = cache(async (callback) => {
-    // Xenova/whisper-tiny.en  Xenova/whisper-tiny Xenova/whisper-small.en
+    // Xenova/whisper-tiny.en  Xenova/whisper-tiny Xenova/whisper-small.en, Xenova/tiny-random-WhisperForConditionalGeneration
     const transcriber = await pipeline('automatic-speech-recognition', 'Xenova/whisper-tiny.en', {progress_callback: callback});
     return transcriber
 })
@@ -24,8 +24,30 @@ export class Whisper {
      */
     async transcribe(data){
         data = this.normalizeAudio(data);
+
+        let fileToTrack = '', largestFile = 0
+
         if(!this.transcriber) this.transcriber = await getModel((e)=>{
-            this.opts.onProgress(e.progress, e)
+
+            // e = {
+            //   "status": "progress",
+            //   "name": "Xenova/whisper-tiny.en",
+            //   "file": "onnx/decoder_model_merged_quantized.onnx",
+            //   "progress": 2.9766187044506425,
+            //   "loaded": 914637,
+            //   "total": 30727382
+            // }
+
+            // track progress of the largest file
+            if(!fileToTrack) fileToTrack = e.file
+            if(largestFile < e.total) {
+                largestFile = e.total
+                fileToTrack = e.file
+            }
+            if(e.file == fileToTrack){
+                this.opts.onProgress(e.progress, e)
+            }
+
         })
         const output = await this.transcriber(data, {
             // task: 'transcribe',

@@ -24,10 +24,14 @@ export class VAD {
             onFrame:function(frame){ }, // triggers on each recorded audio frame
             autostart:false,
             speechPauseMs: 500,
+            numSaveFrames: 5,
             ...opts
         }
+
+        this.lastFrames = []
         if(opts.autostart) this.start()
     }
+
     async start(){
         this.buffer = []
         this.currentFrame = null
