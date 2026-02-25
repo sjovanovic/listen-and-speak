@@ -14,7 +14,9 @@ export class Speaker {
           pathToWorker:'',
           ...opts
         }
-        this.tts_worker = new Worker((this.opts.pathToWorker || this.getScriptPath() ) + "speaker-worker.js");
+
+        let workerUrl = this.opts.pathToWorker ? `${this.opts.pathToWorker}speaker-worker.js` : this.getWorkerUrl('speaker-worker.js')
+        this.tts_worker = new Worker(workerUrl);
         this.audioPlayer = new AudioPlayer(this.tts_worker);
         this.tts_worker.addEventListener("message", (e) => this.messageReceived(e));
         this.tts_worker.addEventListener("error",  (e) => this.errorReceived(e));
@@ -22,6 +24,33 @@ export class Speaker {
 
         this.ready = false
         this.speechQueue = []
+    }
+
+
+    getWorkerUrl(fileName){
+      if(THIS_SCRIPT && THIS_SCRIPT.src) {
+        return this.getScriptPath() + fileName
+      }
+      let url = this.getModuleUrlFallback()
+      let path = url.split('/')
+      path.pop()
+      path = path.join('/') + '/' + fileName
+      console.log('Worker path:', path)
+      return path
+    }
+
+    getModuleUrlFallback() {
+      try {
+        throw new Error();
+      } catch (error) {
+        // Stack trace format varies by browser/engine
+        const stackLine = error.stack.split('\n')[1]; // Get the first stack line after the error
+        //console.log('stackLine', error.stack.split('\n'))
+        // Extract URL using a regex (works in Chrome/Firefox/Safari)
+        //const match = stackLine.match(/(https?:\/\/|file:\/\/\/)[^:\n]+/);
+        const match = stackLine.match(/(https?:\/\/?[-a-zA-Z0-9\:\%\.]+?\/+|file:\/\/\/)[^:\n]+/);
+        return match ? match[0] : null;
+      }
     }
 
     getScriptPath(){
