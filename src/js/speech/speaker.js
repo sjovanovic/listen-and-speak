@@ -28,7 +28,7 @@ export class Speaker {
       let path = THIS_SCRIPT.src.split('/')
       path.pop()
       path = path.join('/') + '/'
-      console.log('path', path)
+      console.log('Worker path:', path)
       return path
     }
 
