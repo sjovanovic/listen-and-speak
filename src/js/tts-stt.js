@@ -120,8 +120,7 @@
                   bubbles: true,
                   composed: true
                 }))
-              },
-              pathToWorker: this.hasAttribute('worker-dir') ? this.getAttribute('worker-dir') : ''
+              }
             });
           }else{
             resolve(this.speaker)

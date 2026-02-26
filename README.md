@@ -179,7 +179,6 @@ You can configure the component via attributes:
 ```html
 <!-- Via attributes -->
 <listen-and-speak 
-  worker-dir="./workers"
   vad-threshold="0.5"
   auto-start="false">
 </listen-and-speak>

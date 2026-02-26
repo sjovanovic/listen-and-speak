@@ -128,3 +128,4 @@ temp/
 # Other
 .npmrc
 src/assets/models/
+src/js/speech/speaker-worker.js.txt

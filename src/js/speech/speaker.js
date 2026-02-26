@@ -1,6 +1,5 @@
 import { AudioPlayer } from "./AudioPlayer.js";
-
-const THIS_SCRIPT = document.currentScript;
+import workerCode from './speaker-worker.js.txt?raw'
 
 export class Speaker {
     constructor(opts={}){
@@ -11,12 +10,14 @@ export class Speaker {
           onLoadingStart:function(){},
           onReady:function(){},
           onStream:function(){},
-          pathToWorker:'',
           ...opts
         }
 
-        let workerUrl = this.opts.pathToWorker ? `${this.opts.pathToWorker}speaker-worker.js` : this.getWorkerUrl('speaker-worker.js')
+        const blob = new Blob([workerCode], { type: 'application/javascript' });
+        const workerUrl = URL.createObjectURL(blob);
         this.tts_worker = new Worker(workerUrl);
+        URL.revokeObjectURL(workerUrl); // Clean up blob URL
+
         this.audioPlayer = new AudioPlayer(this.tts_worker);
         this.tts_worker.addEventListener("message", (e) => this.messageReceived(e));
         this.tts_worker.addEventListener("error",  (e) => this.errorReceived(e));
@@ -24,41 +25,6 @@ export class Speaker {
 
         this.ready = false
         this.speechQueue = []
-    }
-
-
-    getWorkerUrl(fileName){
-      if(THIS_SCRIPT && THIS_SCRIPT.src) {
-        return this.getScriptPath() + fileName
-      }
-      let url = this.getModuleUrlFallback()
-      let path = url.split('/')
-      path.pop()
-      path = path.join('/') + '/' + fileName
-      console.log('Worker path:', path)
-      return path
-    }
-
-    getModuleUrlFallback() {
-      try {
-        throw new Error();
-      } catch (error) {
-        // Stack trace format varies by browser/engine
-        const stackLine = error.stack.split('\n')[1]; // Get the first stack line after the error
-        //console.log('stackLine', error.stack.split('\n'))
-        // Extract URL using a regex (works in Chrome/Firefox/Safari)
-        //const match = stackLine.match(/(https?:\/\/|file:\/\/\/)[^:\n]+/);
-        const match = stackLine.match(/(https?:\/\/?[-a-zA-Z0-9\:\%\.]+?\/+|file:\/\/\/)[^:\n]+/);
-        return match ? match[0] : null;
-      }
-    }
-
-    getScriptPath(){
-      let path = THIS_SCRIPT.src.split('/')
-      path.pop()
-      path = path.join('/') + '/'
-      console.log('Worker path:', path)
-      return path
     }
 
     async messageReceived(e){
