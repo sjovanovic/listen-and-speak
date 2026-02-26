@@ -85,7 +85,7 @@ async function workout() {
                     break;
                 }
 
-                let speed = 0.7;
+                let speed = 0.8;
                 //let speed = 1;
                 const audio = await tts.generate(chunk, { voice, speed }); // This is transformers RawAudio
                 let ab = audio.audio.buffer;

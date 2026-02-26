@@ -1,6 +1,10 @@
 # 🎤 Listen and Speak Web Component
 A custom web component for local, in-browser voice interaction featuring Voice Activity Detection (VAD), Speech-to-Text (STT), and Text-to-Speech (TTS) using transformers.js. No server required — everything runs locally in the browser.
 
+## Demo
+
+- [Basic DEMO](https://sjovanovic.github.io/listen-and-speak/): Speaks back whatever speech it detected
+
 ## ✨ Features
 - 🔒 Privacy-First: All processing happens locally in the browser
 
@@ -50,9 +54,9 @@ The web component is invisible, for a basic visual UI there is an alternative co
 <listen-speak-ui></listen-speak-ui>
 ```
 
-This demo speaks back whatever speech it detected:
+This demo speaks back whatever speech it detects:
 ```html
-<listen-speak-ui speekback></listen-speak-ui>
+<listen-speak-ui speakback></listen-speak-ui>
 ```
 
 

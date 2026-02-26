@@ -49,7 +49,7 @@
             this.ttsLoader.status = 'Loading Text To Speech...'
           }else if(type == 'stt'){
             this.sttLoader.percent = progress
-            this.ttsLoader.status = 'Loading Speech To Text...'
+            this.sttLoader.status = 'Loading Speech To Text...'
           }
         })
 
