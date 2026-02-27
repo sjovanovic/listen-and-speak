@@ -1,6 +1,6 @@
 {
   "name": "listen-and-speak",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A custom web component for local, in-browser voice interaction featuring Voice Activity Detection (VAD), Speech-to-Text (STT), and Text-to-Speech (TTS)",
   "main": "src/index.js",
   "type": "module",
