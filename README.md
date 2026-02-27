@@ -16,7 +16,7 @@ A custom web component for local, in-browser voice interaction featuring Voice A
 
 - 🗣️ Speech Recognition: Whisper model for accurate transcription
 
-- 🔊 Speech Synthesis: Kokoro model for natural-sounding speech
+- 🔊 Speech Synthesis: KittenTTS model for natural-sounding speech
 
 - 📦 Modular Design: Easy to integrate into any web project
 
