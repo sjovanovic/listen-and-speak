@@ -14,7 +14,7 @@ A custom web component for local, in-browser voice interaction featuring Voice A
 
 - 🎯 Voice Activity Detection: Automatically detects speech using Silero VAD
 
-- 🗣️ Speech Recognition: Whisper model for accurate transcription
+- 🗣️ Speech Recognition: Moonshine model for accurate transcription
 
 - 🔊 Speech Synthesis: KittenTTS model for natural-sounding speech
 
@@ -162,7 +162,7 @@ assistant.startConversation();
 ### Models Used
 - Voice Activity Detection: Silero VAD
 
-- Speech-to-Text: OpenAI Whisper
+- Speech-to-Text: Moonshine
 
 - Text-to-Speech: KittenTTS
 
@@ -253,7 +253,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Silero VAD team for voice activity detection
 
-- OpenAI Whisper team for speech recognition
+- Moonshine team for speech recognition
 
 - KittenML team for text-to-speech
 

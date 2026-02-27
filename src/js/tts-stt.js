@@ -2,7 +2,7 @@
   import { TtsBase } from './tts-base'
   import { VAD } from './vad/vad.js'
   import { createSpeechRecognition } from './recognition/recognition.js'
-  import { Whisper } from './recognition/whisper.js'
+  import { Recognize } from './recognition/recognize.js'
   import { Speaker } from './speech/speaker.js'
 
   export class TtsStt extends TtsBase {
@@ -31,9 +31,9 @@
         // })
 
         // implement Speech Recognition (speech to text)
-        if(!this.recognition) this.recognition = new Whisper({
+        if(!this.recognition) this.recognition = new Recognize({
           onProgress:(progress, info) =>{
-            //console.log('Whisper loading', progress, info)
+            //console.log('Recognize loading', progress, info)
             this.dispatchEvent(new CustomEvent('progress', {
               detail: {
                 type:'stt',

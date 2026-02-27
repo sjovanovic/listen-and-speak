@@ -71,8 +71,6 @@ export class KittenTTS {
         input_ids.dims.at(-1) - 2, // Without padding;
         0,
       );
-
-      console.log('Generating', text, voice, speed)
   
       // Load voice style
       const data = await getVoiceData(voice);
