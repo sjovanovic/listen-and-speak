@@ -4,8 +4,8 @@ import cache from 'just-once'
 export const SAMPLE_RATE = 16000
 
 const getModel = cache(async (callback) => {
-    // Xenova/whisper-tiny.en  Xenova/whisper-tiny Xenova/whisper-small.en, Xenova/tiny-random-WhisperForConditionalGeneration onnx-community/moonshine-tiny-ONNX
-    const transcriber = await pipeline('automatic-speech-recognition', 'onnx-community/moonshine-tiny-ONNX', {progress_callback: callback});
+    // onnx-community/moonshine-tiny-ONNX Xenova/whisper-tiny.en  Xenova/whisper-tiny Xenova/whisper-small.en, Xenova/tiny-random-WhisperForConditionalGeneration 
+    const transcriber = await pipeline('automatic-speech-recognition', 'onnx-community/moonshine-base-ONNX', {progress_callback: callback});
     return transcriber
 })
 
